@@ -14,7 +14,7 @@ const Canvas = (props) => {
   useEffect(() => {
     const canvas = canvasRef.current;
     const context = canvas.getContext("2d");
-
+    context.scale(0.5, 0.5);
     //Our draw come here
     draw(context);
   }, [draw]);
