@@ -3,9 +3,9 @@ import Canvas from "./Canvas";
 
 function App() {
   return (
-    <div className="container w-3/4 mx-auto grid grid-cols-2">
-      <h1 className="row">UK Place Finding Game</h1>
-      <Canvas className="row" width="992" height="1842" />
+    <div className="container  grid grid-rows-6">
+      <p className="row mx-auto text-xl">UK Place Finding Game</p>
+      <Canvas className="row mx-auto grid-row-span-5" width="992" height="1842" />
     </div>
   );
 }
