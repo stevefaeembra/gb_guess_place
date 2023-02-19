@@ -21,21 +21,30 @@ const Canvas = ({ round, onGuess, userGuess, ...props }: Props) => {
   const target = round.coordinates;
   const targetName = round.name;
 
-  const draw = (ctx) => {
+  // const draw = (ctx) => {
+  //   var imageObj1 = new Image();
+  //   imageObj1.src = "/uk.png";
+  //   imageObj1.onload = function () {
+  //     ctx.drawImage(imageObj1, 0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+  //   };
+  // };
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext("2d");
     var imageObj1 = new Image();
     imageObj1.src = "/uk.png";
     imageObj1.onload = function () {
       ctx.drawImage(imageObj1, 0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
     };
-  };
+  }, [round]);
 
   useEffect(() => {
-    console.log("triggered!");
+    console.log("user guessed!");
     const canvas = canvasRef.current;
     const context = canvas.getContext("2d");
-    draw(context);
     if (userGuess) {
-      context.fillRect(0, 0, 40, 40);
+      context.fillRect(userGuess.clickCoords[0] - 2, 475 - userGuess.clickCoords[1] - 2, 4, 4);
     }
   }, [userGuess]);
 
