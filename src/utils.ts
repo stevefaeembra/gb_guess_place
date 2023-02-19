@@ -31,6 +31,15 @@ export const getDistanceBetween = (from: number[], to: number[]): number => {
   return parseInt((distanceInMeters / CELLSIZE).toFixed(0));
 };
 
+export const getDistanceBetween2 = (from: number[], to: number[]): number => {
+  // return simple euclidian distance between two canvas coordinates
+  // convert to pixels distance
+  const [x1, y1] = from;
+  const [x2, y2] = to;
+  const distance = Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
+  return parseInt(distance.toFixed(0));
+};
+
 export const getOsgbCoordinatesForPlaceName = (name: string) => {
   // find specific named place's OSGB coordinates
   const feature = PLACES.features.find((feat) => feat.properties.NAME1 === name);

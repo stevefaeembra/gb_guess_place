@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from "react";
 import { CANVAS_HEIGHT, CANVAS_WIDTH } from "./constants";
 import { Round, UserGuess } from "./Types";
-import { convertToOsgb, getDistanceBetween, getOsgbCoordinatesForPlaceName } from "./utils";
+import { convertToOsgb, getDistanceBetween, getDistanceBetween2, getOsgbCoordinatesForPlaceName } from "./utils";
 
 type Props = {
   round: Round; // target to hit
@@ -37,8 +37,12 @@ const Canvas = ({ round, onGuess, userGuess, ...props }: Props) => {
     const context = canvas.getContext("2d");
     console.log("userGuess", userGuess);
     if (userGuess) {
-      context.fillRect(userGuess.clickCoords[0] - 2, 475 - userGuess.clickCoords[1] - 2, 4, 4);
-      context.fillRect(userGuess.targetCoords[0] - 2, userGuess.targetCoords[1] - 2, 4, 4);
+      const clickCo = [userGuess.clickCoords[0] - 2, 475 - userGuess.clickCoords[1] - 2];
+      const actualCo = [userGuess.targetCoords[0] - 2, userGuess.targetCoords[1] - 2];
+      context.fillRect(...clickCo, 4, 4);
+      context.fillRect(...actualCo, 4, 4);
+      const radius = getDistanceBetween2(clickCo, actualCo);
+      console.log("radius", radius);
     }
   }, [userGuess]);
 
