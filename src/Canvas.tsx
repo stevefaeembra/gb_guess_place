@@ -44,8 +44,10 @@ const Canvas = ({ round, onGuess, userGuess, ...props }: Props) => {
       const radius = getDistanceBetween2(clickCo, actualCo);
       console.log("radius", radius);
       context.beginPath();
+      context.fillStyle = "#ffffff66";
       context.arc(actualCo[0], actualCo[1], radius, 0, 365);
       context.stroke();
+      context.fill();
     }
   }, [userGuess]);
 
