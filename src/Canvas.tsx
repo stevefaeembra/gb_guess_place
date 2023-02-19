@@ -8,7 +8,6 @@ const Canvas = (props) => {
   const [distanceFromTarget, setDistanceFromTarget] = useState(0);
 
   const target = getOsgbCoordinatesForPlaceName("Portsmouth");
-  console.log("Target", target);
 
   const draw = (ctx) => {
     var imageObj1 = new Image();
@@ -28,7 +27,6 @@ const Canvas = (props) => {
     const canvas = canvasRef.current;
     const rect = canvas.getBoundingClientRect();
     const offset = [event.clientX - rect.left, 475 - (event.clientY - rect.top)];
-    console.log("offset", offset);
     setCoords(offset);
     const osgbCoords = convertToOsgb(offset);
     setOsgbCoords(osgbCoords);
