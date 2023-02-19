@@ -13,6 +13,15 @@ export const convertToOsgb = (coords: number[]): number[] => {
   return [parseInt(osgbX.toFixed(0)), parseInt(osgbY.toFixed(0))];
 };
 
+export const convertToCanvas = (coords: number[]): number[] => {
+  // convert OSGB coords to canvas coords (Y=0 at top)
+  const [x, y] = coords;
+  const pixelSize = CELLSIZE;
+  const canvasX = x / pixelSize;
+  const canvasY = y / pixelSize;
+  return [parseInt(canvasX.toFixed(0)), 475 - parseInt(canvasY.toFixed(0))];
+};
+
 export const getDistanceBetween = (from: number[], to: number[]): number => {
   // return simple euclidian distance between two OSGB coordinates
   // convert to pixels distance

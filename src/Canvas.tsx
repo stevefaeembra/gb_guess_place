@@ -1,4 +1,5 @@
 import React, { useRef, useEffect, useState } from "react";
+import { CANVAS_HEIGHT, CANVAS_WIDTH } from "./constants";
 import { Round } from "./Types";
 import { convertToOsgb, getDistanceBetween, getOsgbCoordinatesForPlaceName } from "./utils";
 
@@ -23,7 +24,7 @@ const Canvas = ({ round, onGuess, ...props }: Props) => {
     var imageObj1 = new Image();
     imageObj1.src = "/uk.png";
     imageObj1.onload = function () {
-      ctx.drawImage(imageObj1, 0, 0, 256, 475);
+      ctx.drawImage(imageObj1, 0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
     };
   };
 
@@ -36,7 +37,7 @@ const Canvas = ({ round, onGuess, ...props }: Props) => {
   const handleMouseOver = (event: React.MouseEvent<HTMLCanvasElement, MouseEvent>) => {
     const canvas = canvasRef.current;
     const rect = canvas.getBoundingClientRect();
-    const offset = [event.clientX - rect.left, 475 - (event.clientY - rect.top)];
+    const offset = [event.clientX - rect.left, CANVAS_HEIGHT - (event.clientY - rect.top)];
     setCoords(offset);
     const osgbCoords = convertToOsgb(offset);
     setOsgbCoords(osgbCoords);
@@ -46,7 +47,7 @@ const Canvas = ({ round, onGuess, ...props }: Props) => {
   const convertClickToCanvasCoords = (clickX: number, clickY: number) => {
     const canvas = canvasRef.current;
     const rect = canvas.getBoundingClientRect();
-    const offset = [clickX - rect.left, 475 - (clickY - rect.top)];
+    const offset = [clickX - rect.left, CANVAS_HEIGHT - (clickY - rect.top)];
     return offset;
   };
 

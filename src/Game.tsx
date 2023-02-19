@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Canvas from "./Canvas";
-import { CELLSIZE } from "./constants";
+import { CANVAS_HEIGHT, CANVAS_WIDTH, CELLSIZE } from "./constants";
 import { GameState } from "./Types";
 import { convertToOsgb, createGame, getDistanceBetween } from "./utils";
 
@@ -39,8 +39,8 @@ export default function Game({}: Props) {
         onGuess={guessLocation}
         round={game.rounds[game.round]}
         className="row mx-auto grid-row-span-9"
-        width={256}
-        height={475}
+        width={CANVAS_WIDTH}
+        height={CANVAS_HEIGHT}
       />
     </div>
   ) : null;
