@@ -1,4 +1,5 @@
 // convert canvas coords to EPSG:27700
+import { CELLSIZE } from "./constants";
 import { PLACES } from "./places";
 import { GameState, Round } from "./Types";
 
@@ -6,7 +7,7 @@ export const convertToOsgb = (coords: number[]): number[] => {
   // rater is 256 wide = (700,000m) by 475 (1,300,000)
   // each pixel is 2.73km
   const [x, y] = coords;
-  const pixelSize = 2734.375;
+  const pixelSize = CELLSIZE;
   const osgbX = x * pixelSize;
   const osgbY = y * pixelSize;
   return [parseInt(osgbX.toFixed(0)), parseInt(osgbY.toFixed(0))];
@@ -18,7 +19,7 @@ export const getDistanceBetween = (from: number[], to: number[]): number => {
   const [x1, y1] = from;
   const [x2, y2] = to;
   const distanceInMeters = Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
-  return parseInt((distanceInMeters / 2734.375).toFixed(0));
+  return parseInt((distanceInMeters / CELLSIZE).toFixed(0));
 };
 
 export const getOsgbCoordinatesForPlaceName = (name: string) => {
