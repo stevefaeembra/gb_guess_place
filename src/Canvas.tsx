@@ -1,13 +1,19 @@
 import React, { useRef, useEffect, useState } from "react";
+import { Round } from "./Types";
 import { convertToOsgb, getDistanceBetween, getOsgbCoordinatesForPlaceName } from "./utils";
 
-const Canvas = (props) => {
+type Props = {
+  round: Round; // target to hit
+};
+
+const Canvas = ({ round, ...props }: Props) => {
   const canvasRef = useRef(null);
   const [coords, setCoords] = useState([0, 0]);
   const [osgbCoords, setOsgbCoords] = useState([0, 0]);
   const [distanceFromTarget, setDistanceFromTarget] = useState(0);
 
-  const target = getOsgbCoordinatesForPlaceName("Portsmouth");
+  const target = round.coordinates;
+  const targetName = round.name;
 
   const draw = (ctx) => {
     var imageObj1 = new Image();
@@ -23,7 +29,7 @@ const Canvas = (props) => {
     draw(context);
   }, [draw]);
 
-  const handleMouseOver = (event) => {
+  const handleMouseOver = (event: React.MouseEvent<HTMLCanvasElement, MouseEvent>) => {
     const canvas = canvasRef.current;
     const rect = canvas.getBoundingClientRect();
     const offset = [event.clientX - rect.left, 475 - (event.clientY - rect.top)];
@@ -35,12 +41,13 @@ const Canvas = (props) => {
 
   return (
     <div>
-      <p>
+      {/* <p>
         Coords : {coords[0]},{coords[1]}
       </p>
       <p>
         OSGB Coords : {osgbCoords[0]},{osgbCoords[1]}
-      </p>
+      </p> */}
+      <p>Click where you think {targetName} is!</p>
       <p>Distance to target : {distanceFromTarget}</p>
       <canvas onMouseMove={(e) => handleMouseOver(e)} ref={canvasRef} {...props} />
     </div>

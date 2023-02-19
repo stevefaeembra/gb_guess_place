@@ -19,10 +19,10 @@ export default function Game({}: Props) {
     resetGame();
   }
 
-  return (
-    <div className="container  grid grid-rows-6">
+  return game ? (
+    <div className="container  grid grid-rows-10">
       <p className="row mx-auto text-xl">UK Place Finding Game</p>
-      <Canvas className="row mx-auto grid-row-span-5" width="256" height="475" />
+      <Canvas round={game.rounds[game.round]} className="row mx-auto grid-row-span-9" width="256" height="475" />
     </div>
-  );
+  ) : null;
 }
