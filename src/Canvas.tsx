@@ -48,15 +48,17 @@ const Canvas = ({ round, onGuess, ...props }: Props) => {
   };
 
   return (
-    <div>
+    <div className="cursor-crosshair">
       {/* <p>
         Coords : {coords[0]},{coords[1]}
       </p>
       <p>
         OSGB Coords : {osgbCoords[0]},{osgbCoords[1]}
       </p> */}
-      <p>Click where you think {targetName} is!</p>
-      <p>Distance to target : {distanceFromTarget}</p>
+      <p className="text-xl">
+        Target is <b>{targetName}</b>
+      </p>
+      {/* <p>Distance to target : {distanceFromTarget}</p> */}
       <canvas
         onClick={(e) => onGuess(convertClickToCanvasCoords(e.clientX, e.clientY))}
         onMouseMove={(e) => handleMouseOver(e)}
