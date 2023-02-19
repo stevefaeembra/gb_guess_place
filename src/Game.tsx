@@ -21,7 +21,6 @@ export default function Game({}: Props) {
     if (!game) return;
     const [xClick, yClick] = clickCoords;
     const target = game.rounds[game.round];
-    console.log("target", target);
     const targetOsgb = target.coordinates;
     const clickOsgb = convertToOsgb([xClick, yClick]);
     const distance = getDistanceBetween(targetOsgb, clickOsgb);
@@ -40,8 +39,8 @@ export default function Game({}: Props) {
         onGuess={guessLocation}
         round={game.rounds[game.round]}
         className="row mx-auto grid-row-span-9"
-        width="256"
-        height="475"
+        width={256}
+        height={475}
       />
     </div>
   ) : null;

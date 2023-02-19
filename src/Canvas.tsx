@@ -5,6 +5,9 @@ import { convertToOsgb, getDistanceBetween, getOsgbCoordinatesForPlaceName } fro
 type Props = {
   round: Round; // target to hit
   onGuess: Function; // onclick callback
+  className: string;
+  width: number;
+  height: number;
 };
 
 const Canvas = ({ round, onGuess, ...props }: Props) => {
