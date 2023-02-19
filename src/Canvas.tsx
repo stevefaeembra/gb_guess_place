@@ -4,9 +4,10 @@ import { convertToOsgb, getDistanceBetween, getOsgbCoordinatesForPlaceName } fro
 
 type Props = {
   round: Round; // target to hit
+  onGuess: Function; // onclick callback
 };
 
-const Canvas = ({ round, ...props }: Props) => {
+const Canvas = ({ round, onGuess, ...props }: Props) => {
   const canvasRef = useRef(null);
   const [coords, setCoords] = useState([0, 0]);
   const [osgbCoords, setOsgbCoords] = useState([0, 0]);
@@ -39,6 +40,13 @@ const Canvas = ({ round, ...props }: Props) => {
     setDistanceFromTarget(getDistanceBetween(osgbCoords, target));
   };
 
+  const convertClickToCanvasCoords = (clickX: number, clickY: number) => {
+    const canvas = canvasRef.current;
+    const rect = canvas.getBoundingClientRect();
+    const offset = [clickX - rect.left, 475 - (clickY - rect.top)];
+    return offset;
+  };
+
   return (
     <div>
       {/* <p>
@@ -49,7 +57,12 @@ const Canvas = ({ round, ...props }: Props) => {
       </p> */}
       <p>Click where you think {targetName} is!</p>
       <p>Distance to target : {distanceFromTarget}</p>
-      <canvas onMouseMove={(e) => handleMouseOver(e)} ref={canvasRef} {...props} />
+      <canvas
+        onClick={(e) => onGuess(convertClickToCanvasCoords(e.clientX, e.clientY))}
+        onMouseMove={(e) => handleMouseOver(e)}
+        ref={canvasRef}
+        {...props}
+      />
     </div>
   );
 };
