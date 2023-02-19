@@ -1,5 +1,5 @@
 // convert canvas coords to EPSG:27700
-import { CELLSIZE } from "./constants";
+import { CANVAS_HEIGHT, CELLSIZE } from "./constants";
 import { PLACES } from "./places";
 import { GameState, Round } from "./Types";
 
@@ -19,7 +19,7 @@ export const convertToCanvas = (coords: number[]): number[] => {
   const pixelSize = CELLSIZE;
   const canvasX = x / pixelSize;
   const canvasY = y / pixelSize;
-  return [parseInt(canvasX.toFixed(0)), 475 - parseInt(canvasY.toFixed(0))];
+  return [parseInt(canvasX.toFixed(0)), CANVAS_HEIGHT - parseInt(canvasY.toFixed(0))];
 };
 
 export const getDistanceBetween = (from: number[], to: number[]): number => {
