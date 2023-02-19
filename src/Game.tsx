@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import Canvas from "./Canvas";
 import { CANVAS_HEIGHT, CANVAS_WIDTH, CELLSIZE } from "./constants";
-import { GameState } from "./Types";
-import { convertToOsgb, createGame, getDistanceBetween } from "./utils";
+import { GameState, UserGuess } from "./Types";
+import { convertToCanvas, convertToOsgb, createGame, getDistanceBetween } from "./utils";
 
 type Props = {};
 
 export default function Game({}: Props) {
   const [game, setGame] = useState<GameState>();
+  const [guess, setGuess] = useState<UserGuess>();
 
   const resetGame = () => {
     const newGame = createGame(20);
@@ -24,7 +25,15 @@ export default function Game({}: Props) {
     const targetOsgb = target.coordinates;
     const clickOsgb = convertToOsgb([xClick, yClick]);
     const distance = getDistanceBetween(targetOsgb, clickOsgb);
-    alert(`You clicked at [${xClick},${yClick}], you were off by ${distance} pixels`);
+    //alert(`You clicked at [${xClick},${yClick}], you were off by ${distance} pixels`);
+    const placeInCanvas = convertToCanvas(targetOsgb);
+    const currentGuess = {
+      clickCoords: [xClick, yClick],
+      targetCoords: placeInCanvas,
+    };
+    console.log("currentGuess", currentGuess);
+    setGuess(currentGuess);
+    return currentGuess;
   };
 
   if (!game) {
@@ -37,6 +46,7 @@ export default function Game({}: Props) {
       <p className="row mx-auto text-xl">UK Place Finding Game</p>
       <Canvas
         onGuess={guessLocation}
+        userGuess={guess}
         round={game.rounds[game.round]}
         className="row mx-auto grid-row-span-9"
         width={CANVAS_WIDTH}

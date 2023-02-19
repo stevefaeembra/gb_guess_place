@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState } from "react";
 import { CANVAS_HEIGHT, CANVAS_WIDTH } from "./constants";
-import { Round } from "./Types";
+import { Round, UserGuess } from "./Types";
 import { convertToOsgb, getDistanceBetween, getOsgbCoordinatesForPlaceName } from "./utils";
 
 type Props = {
@@ -9,9 +9,10 @@ type Props = {
   className: string;
   width: number;
   height: number;
+  userGuess: UserGuess | undefined; // user guess canvas locations
 };
 
-const Canvas = ({ round, onGuess, ...props }: Props) => {
+const Canvas = ({ round, onGuess, userGuess, ...props }: Props) => {
   const canvasRef = useRef(null);
   const [coords, setCoords] = useState([0, 0]);
   const [osgbCoords, setOsgbCoords] = useState([0, 0]);
@@ -29,10 +30,14 @@ const Canvas = ({ round, onGuess, ...props }: Props) => {
   };
 
   useEffect(() => {
+    console.log("triggered!");
     const canvas = canvasRef.current;
     const context = canvas.getContext("2d");
     draw(context);
-  }, [draw]);
+    if (userGuess) {
+      context.fillRect(0, 0, 40, 40);
+    }
+  }, [userGuess]);
 
   const handleMouseOver = (event: React.MouseEvent<HTMLCanvasElement, MouseEvent>) => {
     const canvas = canvasRef.current;
