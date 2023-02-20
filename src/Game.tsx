@@ -30,6 +30,7 @@ export default function Game({}: Props) {
     const currentGuess = {
       clickCoords: [xClick, yClick],
       targetCoords: placeInCanvas,
+      distance,
     };
     console.log("currentGuess", currentGuess);
     setGuess(currentGuess);

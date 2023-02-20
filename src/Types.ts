@@ -18,4 +18,5 @@ export type UserGuess = {
   // used to draw the result
   clickCoords: number[];
   targetCoords: number[];
+  distance: number;
 };

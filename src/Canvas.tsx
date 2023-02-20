@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from "react";
-import { CANVAS_HEIGHT, CANVAS_WIDTH } from "./constants";
+import { CANVAS_HEIGHT, CANVAS_WIDTH, CELLSIZE } from "./constants";
 import { Round, UserGuess } from "./Types";
 import { convertToOsgb, getDistanceBetween, getDistanceBetween2, getOsgbCoordinatesForPlaceName } from "./utils";
 
@@ -80,6 +80,13 @@ const Canvas = ({ round, onGuess, userGuess, ...props }: Props) => {
       </p> */}
       <p className="text-xl">
         Target is <b>{targetName}</b>
+      </p>
+      <p className="text-xl">
+        {userGuess ? (
+          <span>You were off by {parseInt((userGuess.distance * CELLSIZE) / 1000)} km</span>
+        ) : (
+          <span>&nbsp;</span>
+        )}
       </p>
       {/* <p>Distance to target : {distanceFromTarget}</p> */}
       <canvas
