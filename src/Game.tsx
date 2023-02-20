@@ -15,7 +15,6 @@ export default function Game({}: Props) {
   const resetGame = () => {
     const newGame = createGame(NUMBER_OF_ROUNDS);
     setGame(newGame);
-    console.log("New Game", newGame);
   };
 
   const guessLocation = (clickCoords: number[]) => {
@@ -50,7 +49,6 @@ export default function Game({}: Props) {
       rounds: newRounds,
     };
     setGuess(undefined);
-    console.log("New game state", newGameState);
     setGame(newGameState);
     if (game.round === NUMBER_OF_ROUNDS - 1) {
       setGameOver(true);
@@ -65,7 +63,9 @@ export default function Game({}: Props) {
 
   return !gameOver ? (
     <div className="container  grid grid-rows-10">
-      <p className="row mx-auto text-xl">UK Place Finding Game</p>
+      <p className="row mx-auto text-xl">
+        <b>UK Place Finding Game</b>
+      </p>
       <Canvas
         onGuess={guessLocation}
         userGuess={guess}

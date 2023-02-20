@@ -8,9 +8,13 @@ type Props = {
 
 export default function Scorecard({ game }: Props) {
   const totalScore = game.rounds.reduce((acc, item) => acc + pixelsToKm(item.score), 0);
-  console.log("total score", totalScore);
   return (
     <div>
+      <div>
+        <p className="text-xl mb-3">
+          <b>Game over!</b>
+        </p>
+      </div>
       <table className="mx-auto table table-compact w-3/4">
         <thead>
           <tr>
@@ -32,7 +36,9 @@ export default function Scorecard({ game }: Props) {
         </tbody>
       </table>
       <div>
-        <h1>Score : {totalScore.toFixed(0)}</h1>
+        <p className="text-xl">
+          <b>Score : {totalScore.toFixed(0)}</b>
+        </p>
       </div>
     </div>
   );
