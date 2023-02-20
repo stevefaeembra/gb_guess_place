@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Canvas from "./Canvas";
 import { CANVAS_HEIGHT, CANVAS_WIDTH, CELLSIZE, NUMBER_OF_ROUNDS } from "./constants";
+import Scorecard from "./Scorecard";
 import { GameState, UserGuess } from "./Types";
 import { convertToCanvas, convertToOsgb, createGame, getDistanceBetween } from "./utils";
 
@@ -48,7 +49,7 @@ export default function Game({}: Props) {
       round: game.round + 1,
       rounds: newRounds,
     };
-    setGuess(null);
+    setGuess(undefined);
     console.log("New game state", newGameState);
     setGame(newGameState);
     if (game.round === NUMBER_OF_ROUNDS - 1) {
@@ -77,6 +78,6 @@ export default function Game({}: Props) {
       />
     </div>
   ) : (
-    <h1>Game over</h1>
+    <Scorecard game={game} />
   );
 }
