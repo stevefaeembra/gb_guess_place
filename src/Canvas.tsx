@@ -26,6 +26,7 @@ const Canvas = ({ round, onGuess, userGuess, roundNumber, advanceRound, ...props
 
   useEffect(() => {
     const canvas = canvasRef.current;
+    // @ts-ignore
     const ctx = canvas.getContext("2d");
     var imageObj1 = new Image();
     imageObj1.src = "/uk.png";
@@ -36,6 +37,7 @@ const Canvas = ({ round, onGuess, userGuess, roundNumber, advanceRound, ...props
 
   useEffect(() => {
     const canvas = canvasRef.current;
+    // @ts-ignore
     const context = canvas.getContext("2d");
     if (userGuess) {
       const clickCo = [userGuess.clickCoords[0], 475 - userGuess.clickCoords[1]];
@@ -55,6 +57,7 @@ const Canvas = ({ round, onGuess, userGuess, roundNumber, advanceRound, ...props
 
   const handleMouseOver = (event: React.MouseEvent<HTMLCanvasElement, MouseEvent>) => {
     const canvas = canvasRef.current;
+    // @ts-ignore
     const rect = canvas.getBoundingClientRect();
     const offset = [event.clientX - rect.left, CANVAS_HEIGHT - (event.clientY - rect.top)];
     setCoords(offset);
@@ -65,7 +68,8 @@ const Canvas = ({ round, onGuess, userGuess, roundNumber, advanceRound, ...props
 
   const convertClickToCanvasCoords = (clickX: number, clickY: number) => {
     const canvas = canvasRef.current;
-    const rect = canvas.getBoundingClientRect();
+    // @ts-ignore
+    const rect = canvas?.getBoundingClientRect();
     const offset = [clickX - rect.left, CANVAS_HEIGHT - (clickY - rect.top)];
     return offset;
   };
