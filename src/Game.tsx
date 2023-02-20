@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Canvas from "./Canvas";
-import { CANVAS_HEIGHT, CANVAS_WIDTH, CELLSIZE } from "./constants";
+import { CANVAS_HEIGHT, CANVAS_WIDTH, CELLSIZE, NUMBER_OF_ROUNDS } from "./constants";
 import { GameState, UserGuess } from "./Types";
 import { convertToCanvas, convertToOsgb, createGame, getDistanceBetween } from "./utils";
 
@@ -9,9 +9,10 @@ type Props = {};
 export default function Game({}: Props) {
   const [game, setGame] = useState<GameState>();
   const [guess, setGuess] = useState<UserGuess | undefined>();
+  const [gameOver, setGameOver] = useState<Boolean>(false);
 
   const resetGame = () => {
-    const newGame = createGame(20);
+    const newGame = createGame(NUMBER_OF_ROUNDS);
     setGame(newGame);
     console.log("New Game", newGame);
   };
@@ -25,19 +26,18 @@ export default function Game({}: Props) {
     const targetOsgb = target.coordinates;
     const clickOsgb = convertToOsgb([xClick, yClick]);
     const distance = getDistanceBetween(targetOsgb, clickOsgb);
-    //alert(`You clicked at [${xClick},${yClick}], you were off by ${distance} pixels`);
     const placeInCanvas = convertToCanvas(targetOsgb);
     const currentGuess = {
       clickCoords: [xClick, yClick],
       targetCoords: placeInCanvas,
       distance,
     };
-    console.log("currentGuess", currentGuess);
     setGuess(currentGuess);
     return currentGuess;
   };
 
   const advanceRound = (distance: number) => {
+    // update scorboard, go to next round
     if (!game) return null;
     const newRounds = [...game.rounds];
     newRounds[game.round] = {
@@ -51,14 +51,18 @@ export default function Game({}: Props) {
     setGuess(null);
     console.log("New game state", newGameState);
     setGame(newGameState);
+    if (game.round === NUMBER_OF_ROUNDS - 1) {
+      setGameOver(true);
+    }
   };
 
   if (!game) {
     console.clear();
     resetGame();
+    return null;
   }
 
-  return game ? (
+  return !gameOver ? (
     <div className="container  grid grid-rows-10">
       <p className="row mx-auto text-xl">UK Place Finding Game</p>
       <Canvas
@@ -66,10 +70,13 @@ export default function Game({}: Props) {
         userGuess={guess}
         advanceRound={advanceRound}
         round={game.rounds[game.round]}
+        roundNumber={game.round}
         className="row mx-auto grid-row-span-9"
         width={CANVAS_WIDTH}
         height={CANVAS_HEIGHT}
       />
     </div>
-  ) : null;
+  ) : (
+    <h1>Game over</h1>
+  );
 }
