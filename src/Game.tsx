@@ -8,7 +8,7 @@ type Props = {};
 
 export default function Game({}: Props) {
   const [game, setGame] = useState<GameState>();
-  const [guess, setGuess] = useState<UserGuess>();
+  const [guess, setGuess] = useState<UserGuess | undefined>();
 
   const resetGame = () => {
     const newGame = createGame(20);
@@ -37,6 +37,22 @@ export default function Game({}: Props) {
     return currentGuess;
   };
 
+  const advanceRound = (distance: number) => {
+    if (!game) return null;
+    const newRounds = [...game.rounds];
+    newRounds[game.round] = {
+      ...game.rounds[game.round],
+      score: distance,
+    };
+    const newGameState = {
+      round: game.round + 1,
+      rounds: newRounds,
+    };
+    setGuess(null);
+    console.log("New game state", newGameState);
+    setGame(newGameState);
+  };
+
   if (!game) {
     console.clear();
     resetGame();
@@ -48,6 +64,7 @@ export default function Game({}: Props) {
       <Canvas
         onGuess={guessLocation}
         userGuess={guess}
+        advanceRound={advanceRound}
         round={game.rounds[game.round]}
         className="row mx-auto grid-row-span-9"
         width={CANVAS_WIDTH}

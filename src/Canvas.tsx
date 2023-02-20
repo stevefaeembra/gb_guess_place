@@ -6,13 +6,14 @@ import { convertToOsgb, getDistanceBetween, getDistanceBetween2, getOsgbCoordina
 type Props = {
   round: Round; // target to hit
   onGuess: Function; // onclick callback
+  advanceRound: Function; // advance to next round callback
   className: string;
   width: number;
   height: number;
   userGuess: UserGuess | undefined; // user guess canvas locations
 };
 
-const Canvas = ({ round, onGuess, userGuess, ...props }: Props) => {
+const Canvas = ({ round, onGuess, userGuess, advanceRound, ...props }: Props) => {
   const canvasRef = useRef(null);
   const [coords, setCoords] = useState([0, 0]);
   const [osgbCoords, setOsgbCoords] = useState([0, 0]);
@@ -83,7 +84,15 @@ const Canvas = ({ round, onGuess, userGuess, ...props }: Props) => {
       </p>
       <p className="text-xl">
         {userGuess ? (
-          <span>You were off by {parseInt((userGuess.distance * CELLSIZE) / 1000)} km</span>
+          <>
+            <span>You were off by {parseInt((userGuess.distance * CELLSIZE) / 1000)} km</span>
+            <button
+              onClick={() => advanceRound(parseInt((userGuess.distance * CELLSIZE) / 1000))}
+              className="btn btn-xs"
+            >
+              Advance
+            </button>
+          </>
         ) : (
           <span>&nbsp;</span>
         )}
