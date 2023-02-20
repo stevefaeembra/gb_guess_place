@@ -11,11 +11,11 @@ export default function Scorecard({ game }: Props) {
   return (
     <div>
       <div>
-        <p className="text-xl mb-3">
-          <b>Game over!</b>
-        </p>
+        <div className="text-xl mb-3">
+          <h1>Game over!</h1>
+        </div>
       </div>
-      <table className="mx-auto table table-compact w-3/4">
+      <table className="mx-auto table table-compact w-1/3">
         <thead>
           <tr>
             <th>Round</th>
@@ -39,6 +39,11 @@ export default function Scorecard({ game }: Props) {
         <p className="text-xl">
           <b>Score : {totalScore.toFixed(0)}</b>
         </p>
+      </div>
+      <div>
+        <button onClick={() => location.reload()} className="btn">
+          Play again!
+        </button>
       </div>
     </div>
   );

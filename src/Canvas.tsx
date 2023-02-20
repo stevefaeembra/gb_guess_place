@@ -88,9 +88,8 @@ const Canvas = ({ round, onGuess, userGuess, roundNumber, advanceRound, ...props
       <p className="text-xl">
         {userGuess ? (
           <>
-            <span>Off by {userGuess.distance} </span>
-            <button onClick={() => advanceRound(userGuess.distance)} className="btn btn-xs">
-              Next &gt;
+            <button onClick={() => advanceRound(userGuess.distance)} className="btn btn-sm mb-3">
+              NEXT
             </button>
           </>
         ) : (
