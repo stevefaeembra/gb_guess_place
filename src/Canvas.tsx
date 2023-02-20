@@ -77,6 +77,17 @@ const Canvas = ({ round, onGuess, userGuess, roundNumber, advanceRound, ...props
   return (
     <div className="cursor-crosshair">
       <p className="text-xl">
+        {userGuess ? (
+          <>
+            <button onClick={() => advanceRound(userGuess.distance)} className="btn btn-sm mb-3">
+              NEXT
+            </button>
+          </>
+        ) : (
+          <span className="btn btn-ghost btn-disabled btn-sm mb-3">Guess</span>
+        )}
+      </p>
+      <p className="text-xl">
         Round{" "}
         <b>
           {roundNumber + 1} / {NUMBER_OF_ROUNDS}
@@ -85,17 +96,7 @@ const Canvas = ({ round, onGuess, userGuess, roundNumber, advanceRound, ...props
       <p className="text-xl">
         Target is <b>{targetName}</b>
       </p>
-      <p className="text-xl">
-        {userGuess ? (
-          <>
-            <button onClick={() => advanceRound(userGuess.distance)} className="btn btn-sm mb-3">
-              NEXT
-            </button>
-          </>
-        ) : (
-          <span>&nbsp;</span>
-        )}
-      </p>
+
       <canvas
         onClick={(e) => onGuess(convertClickToCanvasCoords(e.clientX, e.clientY))}
         onMouseMove={(e) => handleMouseOver(e)}
