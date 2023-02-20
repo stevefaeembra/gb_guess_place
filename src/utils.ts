@@ -40,6 +40,8 @@ export const getDistanceBetween2 = (from: number[], to: number[]): number => {
   return parseInt(distance.toFixed(0));
 };
 
+export const pixelsToKm = (pixels: number) => (pixels * CELLSIZE) / 1000;
+
 export const getOsgbCoordinatesForPlaceName = (name: string) => {
   // find specific named place's OSGB coordinates
   const feature = PLACES.features.find((feat) => feat.properties.NAME1 === name);
