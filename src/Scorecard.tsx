@@ -5,9 +5,10 @@ import { useLocalStorage } from "usehooks-ts";
 
 type Props = {
   game: GameState;
+  showStats: Function;
 };
 
-export default function Scorecard({ game }: Props) {
+export default function Scorecard({ game, showStats }: Props) {
   // default to really high number, as we want lower total distance to be a winner
   const [highScoreDistance, setHighScoreDistance] = useLocalStorage("gbguessgame.highscore.distance", "99999999");
   const [highScoreGame, setHighScoreGame] = useLocalStorage("gbguessgame.highscore.gamescore", "0");
@@ -55,7 +56,11 @@ export default function Scorecard({ game }: Props) {
       setHighScoreGame(score.toString());
     }
     setGamesPlayed((parseInt(gamesPlayed) + 1).toString());
-    if (reload) location.reload();
+    if (reload) {
+      location.reload();
+    } else {
+      showStats();
+    }
   };
 
   return (

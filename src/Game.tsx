@@ -11,6 +11,7 @@ export default function Game({}: Props) {
   const [game, setGame] = useState<GameState>();
   const [guess, setGuess] = useState<UserGuess | undefined>();
   const [gameOver, setGameOver] = useState<Boolean>(false);
+  const [showStats, setShowStats] = useState<Boolean>(false);
 
   const resetGame = () => {
     const newGame = createGame(NUMBER_OF_ROUNDS);
@@ -55,6 +56,11 @@ export default function Game({}: Props) {
     }
   };
 
+  const showStatistics = () => {
+    alert("Clicked on show stats");
+    setShowStats(true);
+  };
+
   if (!game) {
     console.clear();
     resetGame();
@@ -78,6 +84,6 @@ export default function Game({}: Props) {
       />
     </div>
   ) : (
-    <Scorecard game={game} />
+    <Scorecard showStats={showStatistics} game={game} />
   );
 }
