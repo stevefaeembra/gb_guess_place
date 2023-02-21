@@ -1,7 +1,7 @@
-import React, { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState } from "react";
 import { CANVAS_HEIGHT, CANVAS_WIDTH, CELLSIZE, NUMBER_OF_ROUNDS } from "./constants";
 import { Round, UserGuess } from "./Types";
-import { convertToOsgb, getDistanceBetween, getDistanceBetween2, getOsgbCoordinatesForPlaceName } from "./utils";
+import { getDistanceBetween2 } from "./utils";
 
 type Props = {
   round: Round; // target to hit
@@ -16,12 +16,7 @@ type Props = {
 
 const Canvas = ({ round, onGuess, userGuess, roundNumber, advanceRound, ...props }: Props) => {
   const canvasRef = useRef(null);
-  const [coords, setCoords] = useState([0, 0]);
-  const [osgbCoords, setOsgbCoords] = useState([0, 0]);
-  const [distanceFromTarget, setDistanceFromTarget] = useState(0);
-  const [guessDistance, setGuessDistance] = useState(0);
-
-  const target = round.coordinates;
+  // const target = round.coordinates;
   const targetName = round.name;
 
   const drawCircle = (context, centre: number[], radius: number, color: string) => {
@@ -70,17 +65,6 @@ const Canvas = ({ round, onGuess, userGuess, roundNumber, advanceRound, ...props
       context.stroke();
     }
   }, [userGuess]);
-
-  const handleMouseOver = (event: React.MouseEvent<HTMLCanvasElement, MouseEvent>) => {
-    const canvas = canvasRef.current;
-    // @ts-ignore
-    const rect = canvas.getBoundingClientRect();
-    const offset = [event.clientX - rect.left, CANVAS_HEIGHT - (event.clientY - rect.top)];
-    setCoords(offset);
-    const osgbCoords = convertToOsgb(offset);
-    setOsgbCoords(osgbCoords);
-    setDistanceFromTarget(getDistanceBetween(osgbCoords, target));
-  };
 
   const convertClickToCanvasCoords = (clickX: number, clickY: number) => {
     const canvas = canvasRef.current;

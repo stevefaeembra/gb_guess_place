@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Canvas from "./Canvas";
 import { CANVAS_HEIGHT, CANVAS_WIDTH, CELLSIZE, NUMBER_OF_ROUNDS } from "./constants";
 import Scorecard from "./Scorecard";

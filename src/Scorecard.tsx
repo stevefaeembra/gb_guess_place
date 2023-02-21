@@ -95,12 +95,12 @@ export default function Scorecard({ game, showStats }: Props) {
         </tbody>
       </table>
       <div>
-        <p className="text-xl mb-4">
+        <p className="text-xl my-2">
           <b>Out by {totalScore.toFixed(0)} Km in total</b>
         </p>
       </div>
       <div>
-        <p className="text-xl mb-4">
+        <p className="text-xl my-2">
           <b>Score : {gameScore.toFixed(0)}</b>
         </p>
       </div>
