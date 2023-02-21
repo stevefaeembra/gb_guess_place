@@ -46,7 +46,7 @@ export default function Scorecard({ game }: Props) {
 
   const gameScore = scoreBands.reduce((acc, item) => acc + item.score, 0);
 
-  const updateHighScores = (distance: number, score: number) => {
+  const updateHighScores = (distance: number, score: number, reload: boolean) => {
     if (distance < parseInt(parseFloat(highScoreDistance).toFixed(0))) {
       // XXX
       setHighScoreDistance(distance.toString());
@@ -55,7 +55,7 @@ export default function Scorecard({ game }: Props) {
       setHighScoreGame(score.toString());
     }
     setGamesPlayed((parseInt(gamesPlayed) + 1).toString());
-    location.reload();
+    if (reload) location.reload();
   };
 
   return (
@@ -100,8 +100,12 @@ export default function Scorecard({ game }: Props) {
         </p>
       </div>
       <div>
-        <button onClick={() => updateHighScores(totalScore, gameScore)} className="btn">
+        <button onClick={() => updateHighScores(totalScore, gameScore, true)} className="btn">
           Play again!
+        </button>
+        &nbsp;
+        <button onClick={() => updateHighScores(totalScore, gameScore, false)} className="btn">
+          Stats
         </button>
       </div>
     </div>
