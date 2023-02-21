@@ -8,6 +8,25 @@ type Props = {
 
 export default function Scorecard({ game }: Props) {
   const totalScore = game.rounds.reduce((acc, item) => acc + pixelsToKm(item.score), 0);
+  // assign scores by distance
+  const scoreBands = game.rounds.map((round) => {
+    if (round.score <= 5)
+      return {
+        title: "Gold",
+        class: "text-amber-300",
+      };
+    if (round.score <= 10)
+      return {
+        title: "Silver",
+        class: "text-sky-50",
+      };
+    if (round.score <= 20)
+      return {
+        title: "Bronze",
+        class: "text-yellow-600",
+      };
+    return { title: "X", class: "" };
+  });
   return (
     <div>
       <div>
@@ -22,6 +41,7 @@ export default function Scorecard({ game }: Props) {
             <th>Target</th>
             <th>Distance (px)</th>
             <th>Distance (km)</th>
+            <th>Rating</th>
           </tr>
         </thead>
         <tbody>
@@ -33,6 +53,9 @@ export default function Scorecard({ game }: Props) {
               </td>
               <td>{round.score}</td>
               <td>{pixelsToKm(round.score).toFixed(0)}</td>
+              <td>
+                <p className={scoreBands[index].class}>{scoreBands[index].title}</p>
+              </td>
             </tr>
           ))}
         </tbody>
