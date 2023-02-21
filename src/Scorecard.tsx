@@ -9,8 +9,8 @@ type Props = {
 
 export default function Scorecard({ game }: Props) {
   // default to really high number, as we want lower total distance to be a winner
-  const [highScoreDistance, setHighScoreDistance] = useLocalStorage("ukguessgame.highscore.distance", "99999999");
-  const [highScoreGame, setHighScoreGame] = useLocalStorage("ukguessgame.highscore.gamescore", "0");
+  const [highScoreDistance, setHighScoreDistance] = useLocalStorage("gbguessgame.highscore.distance", "99999999");
+  const [highScoreGame, setHighScoreGame] = useLocalStorage("gbguessgame.highscore.gamescore", "0");
 
   const totalScore = game.rounds.reduce((acc, item) => acc + pixelsToKm(item.score), 0);
 

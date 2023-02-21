@@ -64,7 +64,7 @@ export default function Game({}: Props) {
   return !gameOver ? (
     <div className="container  grid grid-rows-10">
       <p className="row mx-auto text-xl">
-        <b>UK Place Finding Game</b>
+        <b>GB Place Finding Game</b>
       </p>
       <Canvas
         onGuess={guessLocation}
