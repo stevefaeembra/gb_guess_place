@@ -13,25 +13,29 @@ export default function Scorecard({ game }: Props) {
     if (round.score <= 5)
       return {
         title: "Gold",
-        class: "text-amber-300",
+        class: "text-amber-300 font-bold",
+        score: 100,
       };
     if (round.score <= 10)
       return {
         title: "Silver",
-        class: "text-sky-50",
+        class: "text-slate-400 font-bold ",
+        score: 50,
       };
     if (round.score <= 20)
       return {
         title: "Bronze",
-        class: "text-yellow-600",
+        class: "text-yellow-600 font-bold",
+        score: 25,
       };
-    return { title: "X", class: "" };
+    return { title: "Miss", class: "text-slate-300", score: 0 };
   });
+  const gameScore = scoreBands.reduce((acc, item) => acc + item.score, 0);
   return (
     <div>
       <div>
-        <div className="text-xl mb-3">
-          <h1>Game Over!</h1>
+        <div className="mb-3">
+          <h1 className="text-lg font-bold">Game Over!</h1>
         </div>
       </div>
       <table className="mx-auto table table-compact w-1/3">
@@ -62,7 +66,12 @@ export default function Scorecard({ game }: Props) {
       </table>
       <div>
         <p className="text-xl mb-4">
-          <b>Score : {totalScore.toFixed(0)}</b>
+          <b>Out by {totalScore.toFixed(0)} Km in total</b>
+        </p>
+      </div>
+      <div>
+        <p className="text-xl mb-4">
+          <b>Score : {gameScore.toFixed(0)}</b>
         </p>
       </div>
       <div>
