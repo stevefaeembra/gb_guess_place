@@ -46,7 +46,7 @@ const Canvas = ({ round, onGuess, userGuess, roundNumber, advanceRound, ...props
       context.fillRect(...actualCo, 1, 1);
       const radius = getDistanceBetween2(clickCo, actualCo);
       context.beginPath();
-      context.fillStyle = "#ffff0033";
+      context.fillStyle = "#ffffff66";
       context.arc(actualCo[0], actualCo[1], radius, 0, 365);
       context.moveTo(actualCo[0], actualCo[1]);
       context.lineTo(clickCo[0], clickCo[1]);

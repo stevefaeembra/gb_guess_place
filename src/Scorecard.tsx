@@ -12,7 +12,7 @@ export default function Scorecard({ game }: Props) {
     <div>
       <div>
         <div className="text-xl mb-3">
-          <h1>Game over!</h1>
+          <h1>Game Over!</h1>
         </div>
       </div>
       <table className="mx-auto table table-compact w-1/3">
@@ -28,7 +28,9 @@ export default function Scorecard({ game }: Props) {
           {game.rounds.map((round, index) => (
             <tr key={`${index}${round.name}`}>
               <td>{index + 1}</td>
-              <td>{round.name}</td>
+              <td>
+                <b>{round.name}</b>
+              </td>
               <td>{round.score}</td>
               <td>{pixelsToKm(round.score).toFixed(0)}</td>
             </tr>
@@ -36,7 +38,7 @@ export default function Scorecard({ game }: Props) {
         </tbody>
       </table>
       <div>
-        <p className="text-xl">
+        <p className="text-xl mb-4">
           <b>Score : {totalScore.toFixed(0)}</b>
         </p>
       </div>
