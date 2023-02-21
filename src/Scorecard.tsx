@@ -1,13 +1,19 @@
 import React from "react";
 import { GameState } from "./Types";
 import { pixelsToKm } from "./utils";
+import { useLocalStorage } from "usehooks-ts";
 
 type Props = {
   game: GameState;
 };
 
 export default function Scorecard({ game }: Props) {
+  // default to really high number, as we want lower total distance to be a winner
+  const [highScoreDistance, setHighScoreDistance] = useLocalStorage("ukguessgame.highscore.distance", "99999999");
+  const [highScoreGame, setHighScoreGame] = useLocalStorage("ukguessgame.highscore.gamescore", "0");
+
   const totalScore = game.rounds.reduce((acc, item) => acc + pixelsToKm(item.score), 0);
+
   // assign scores by distance
   const scoreBands = game.rounds.map((round) => {
     if (round.score <= 1)
@@ -34,9 +40,22 @@ export default function Scorecard({ game }: Props) {
         class: "text-yellow-600 font-bold",
         score: 25,
       };
-    return { title: "Miss", class: "text-slate-300", score: 0 };
+    return { title: ":-(", class: "text-slate-300", score: 0 };
   });
+
   const gameScore = scoreBands.reduce((acc, item) => acc + item.score, 0);
+
+  const updateHighScores = (distance: number, score: number) => {
+    if (distance < parseInt(parseFloat(highScoreDistance).toFixed(0))) {
+      // XXX
+      setHighScoreDistance(distance.toString());
+    }
+    if (score > parseInt(highScoreGame)) {
+      setHighScoreGame(score.toString());
+    }
+    location.reload();
+  };
+
   return (
     <div>
       <div>
@@ -79,7 +98,7 @@ export default function Scorecard({ game }: Props) {
         </p>
       </div>
       <div>
-        <button onClick={() => location.reload()} className="btn">
+        <button onClick={() => updateHighScores(totalScore, gameScore)} className="btn">
           Play again!
         </button>
       </div>
