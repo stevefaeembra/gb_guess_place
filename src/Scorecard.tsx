@@ -49,7 +49,7 @@ export default function Scorecard({ game }: Props) {
           <tr>
             <th>Round</th>
             <th>Target</th>
-            <th>Distance (px)</th>
+            <th>Off by</th>
             <th>Rating</th>
           </tr>
         </thead>
