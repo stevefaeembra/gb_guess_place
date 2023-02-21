@@ -24,6 +24,15 @@ const Canvas = ({ round, onGuess, userGuess, roundNumber, advanceRound, ...props
   const target = round.coordinates;
   const targetName = round.name;
 
+  const drawCircle = (context, centre: number[], radius: number, color: string) => {
+    context.beginPath();
+    context.fillStyle = color;
+    context.strokeStyle = "#333333";
+    context.arc(centre[0], centre[1], radius, 0, 365);
+    context.stroke();
+    context.fill();
+  };
+
   useEffect(() => {
     const canvas = canvasRef.current;
     // @ts-ignore
@@ -45,13 +54,20 @@ const Canvas = ({ round, onGuess, userGuess, roundNumber, advanceRound, ...props
       context.fillRect(...clickCo, 1, 1);
       context.fillRect(...actualCo, 1, 1);
       const radius = getDistanceBetween2(clickCo, actualCo);
+
+      // draw target rings for gold, silver, bronze and users guess
+      drawCircle(context, actualCo, radius, "#ffffff66"); // user guess
+      drawCircle(context, actualCo, 5, "#ff000066");
+      drawCircle(context, actualCo, 10, "#99000066");
+      drawCircle(context, actualCo, 20, "#66000066");
+      drawCircle(context, clickCo, 1, "#00000066"); // user guess
+
+      // draw line from target to click location
       context.beginPath();
-      context.fillStyle = "#ffffff66";
-      context.arc(actualCo[0], actualCo[1], radius, 0, 365);
+      context.strokeStyle = "black";
       context.moveTo(actualCo[0], actualCo[1]);
       context.lineTo(clickCo[0], clickCo[1]);
       context.stroke();
-      context.fill();
     }
   }, [userGuess]);
 
