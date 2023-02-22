@@ -13,6 +13,10 @@ export default function Scorecard({ game, showStats }: Props) {
   const [highScoreDistance, setHighScoreDistance] = useLocalStorage("gbguessgame.highscore.distance", "99999999");
   const [highScoreGame, setHighScoreGame] = useLocalStorage("gbguessgame.highscore.gamescore", "0");
   const [gamesPlayed, setGamesPlayed] = useLocalStorage("gbguessgame.highscore.gamecount", "0");
+  const [platinum, setPlatinum] = useLocalStorage("gbguessgame.count.platinum", "0");
+  const [gold, setGold] = useLocalStorage("gbguessgame.count.gold", "0");
+  const [silver, setSilver] = useLocalStorage("gbguessgame.count.silver", "0");
+  const [bronze, setBronze] = useLocalStorage("gbguessgame.count.bronze", "0");
 
   const totalScore = game.rounds.reduce((acc, item) => acc + pixelsToKm(item.score), 0);
 
@@ -46,8 +50,16 @@ export default function Scorecard({ game, showStats }: Props) {
   });
 
   const gameScore = scoreBands.reduce((acc, item) => acc + item.score, 0);
+  const countPlatinum = scoreBands.filter((i) => i.title === "Platinum").length;
+  const countGold = scoreBands.filter((i) => i.title === "Gold").length;
+  const countSilver = scoreBands.filter((i) => i.title === "Silver").length;
+  const countBronze = scoreBands.filter((i) => i.title === "Bronze").length;
 
   const updateHighScores = (distance: number, score: number, reload: boolean) => {
+    setPlatinum((parseInt(platinum) + countPlatinum).toString());
+    setGold((parseInt(gold) + countGold).toString());
+    setSilver((parseInt(silver) + countSilver).toString());
+    setBronze((parseInt(bronze) + countBronze).toString());
     if (distance < parseInt(parseFloat(highScoreDistance).toFixed(0))) {
       // XXX
       setHighScoreDistance(distance.toString());
