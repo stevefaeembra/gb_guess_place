@@ -2,6 +2,7 @@ import { useState } from "react";
 import Canvas from "./Canvas";
 import { CANVAS_HEIGHT, CANVAS_WIDTH, CELLSIZE, NUMBER_OF_ROUNDS } from "./constants";
 import Scorecard from "./Scorecard";
+import StatsCard from "./StatsCard";
 import { GameState, UserGuess } from "./Types";
 import { convertToCanvas, convertToOsgb, createGame, getDistanceBetween } from "./utils";
 
@@ -57,7 +58,6 @@ export default function Game({}: Props) {
   };
 
   const showStatistics = () => {
-    alert("Clicked on show stats");
     setShowStats(true);
   };
 
@@ -83,6 +83,8 @@ export default function Game({}: Props) {
         height={CANVAS_HEIGHT}
       />
     </div>
+  ) : showStats ? (
+    <StatsCard />
   ) : (
     <Scorecard showStats={showStatistics} game={game} />
   );
