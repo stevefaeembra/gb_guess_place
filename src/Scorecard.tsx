@@ -46,7 +46,7 @@ export default function Scorecard({ game, showStats }: Props) {
         class: "text-yellow-600 font-bold",
         score: 25,
       };
-    return { title: ":-(", class: "text-slate-300", score: 0 };
+    return { title: "", class: "text-slate-300", score: 0 };
   });
 
   const gameScore = scoreBands.reduce((acc, item) => acc + item.score, 0);

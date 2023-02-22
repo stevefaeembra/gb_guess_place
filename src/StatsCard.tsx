@@ -2,6 +2,7 @@ import React from "react";
 import { GameState } from "./Types";
 import { pixelsToKm } from "./utils";
 import { useLocalStorage } from "usehooks-ts";
+import { NUMBER_OF_ROUNDS } from "./constants";
 
 type Props = {};
 
@@ -13,6 +14,12 @@ export default function StatsCard(props: Props) {
   const [gold, setGold] = useLocalStorage("gbguessgame.count.gold", "0");
   const [silver, setSilver] = useLocalStorage("gbguessgame.count.silver", "0");
   const [bronze, setBronze] = useLocalStorage("gbguessgame.count.bronze", "0");
+  const numberRounds = parseInt(gamesPlayed) * NUMBER_OF_ROUNDS;
+
+  const asPercentageOfRounds = (value: string) => {
+    return ((parseFloat(value) / numberRounds) * 100).toFixed(1);
+  };
+
   return (
     <div>
       <div>
@@ -35,6 +42,11 @@ export default function StatsCard(props: Props) {
             <th>{gamesPlayed}</th>
           </tr>
           <tr>
+            <th>Rounds Played</th>
+            <th>Total number rounds</th>
+            <th>{numberRounds}</th>
+          </tr>
+          <tr>
             <th>High Score</th>
             <th>Highest game score</th>
             <th>{highScoreGame}</th>
@@ -47,22 +59,34 @@ export default function StatsCard(props: Props) {
           <tr>
             <th>Platinum</th>
             <th>Guesses within 2 pixels</th>
-            <th>{platinum}</th>
+            <th>
+              {" "}
+              {platinum} ( {asPercentageOfRounds(platinum)} %)
+            </th>
           </tr>
           <tr>
             <th>Gold</th>
             <th>Guesses within 5 pixels</th>
-            <th>{gold}</th>
+            <th>
+              {" "}
+              {gold} ( {asPercentageOfRounds(gold)} %)
+            </th>
           </tr>
           <tr>
             <th>Silver</th>
             <th>Guesses within 10 pixels</th>
-            <th>{silver}</th>
+            <th>
+              {" "}
+              {silver} ( {asPercentageOfRounds(silver)} %)
+            </th>
           </tr>
           <tr>
             <th>Bronze</th>
             <th>Guesses within 20 pixels</th>
-            <th>{bronze}</th>
+            <th>
+              {" "}
+              {bronze} ( {asPercentageOfRounds(bronze)} %)
+            </th>
           </tr>
         </tbody>
       </table>
