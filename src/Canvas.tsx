@@ -19,7 +19,7 @@ const Canvas = ({ round, onGuess, userGuess, roundNumber, advanceRound, ...props
   // const target = round.coordinates;
   const targetName = round.name;
 
-  const drawCircle = (context, centre: number[], radius: number, color: string) => {
+  const drawCircle = (context: any, centre: number[], radius: number, color: string) => {
     context.beginPath();
     context.fillStyle = color;
     context.strokeStyle = "#333333";
