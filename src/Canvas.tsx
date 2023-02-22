@@ -97,12 +97,7 @@ const Canvas = ({ round, onGuess, userGuess, roundNumber, advanceRound, ...props
         Target is <b>{targetName}</b>
       </p>
 
-      <canvas
-        onClick={(e) => onGuess(convertClickToCanvasCoords(e.clientX, e.clientY))}
-        onMouseMove={(e) => handleMouseOver(e)}
-        ref={canvasRef}
-        {...props}
-      />
+      <canvas onClick={(e) => onGuess(convertClickToCanvasCoords(e.clientX, e.clientY))} ref={canvasRef} {...props} />
     </div>
   );
 };
