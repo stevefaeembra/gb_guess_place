@@ -4,8 +4,8 @@ import { PLACES } from "./places";
 import { GameState, Round } from "./Types";
 
 export const convertToOsgb = (coords: number[]): number[] => {
-  // rater is 256 wide = (700,000m) by 475 (1,300,000)
-  // each pixel is 2.73km
+  // raster is 256 wide = (700,000m) by 475 (1,300,000)
+  // so each pixel is 2.73km by 2.73km
   const [x, y] = coords;
   const pixelSize = CELLSIZE;
   const osgbX = x * pixelSize;

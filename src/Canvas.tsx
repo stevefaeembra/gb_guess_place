@@ -16,7 +16,6 @@ type Props = {
 
 const Canvas = ({ round, onGuess, userGuess, roundNumber, advanceRound, ...props }: Props) => {
   const canvasRef = useRef(null);
-  // const target = round.coordinates;
   const targetName = round.name;
 
   const drawCircle = (context: any, centre: number[], radius: number, color: string) => {
@@ -70,6 +69,7 @@ const Canvas = ({ round, onGuess, userGuess, roundNumber, advanceRound, ...props
     const canvas = canvasRef.current;
     // @ts-ignore
     const rect = canvas?.getBoundingClientRect();
+    // we invert y axis so 0 is at the bottom, so it matches OSGB northings
     const offset = [clickX - rect.left, CANVAS_HEIGHT - (clickY - rect.top)];
     return offset;
   };
