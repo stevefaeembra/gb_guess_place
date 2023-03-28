@@ -50,11 +50,12 @@ const Canvas = ({ round, onGuess, userGuess, roundNumber, advanceRound, ...props
       const radius = getDistanceBetween2(clickCo, actualCo);
 
       // draw target rings for gold, silver, bronze and users guess
-      drawCircle(context, actualCo, radius, "#ffffff66"); // user guess
-      drawCircle(context, actualCo, 5, "#ff000066");
-      drawCircle(context, actualCo, 10, "#99000066");
-      drawCircle(context, actualCo, 20, "#66000066");
+
       drawCircle(context, clickCo, 1, "#00000066"); // user guess
+      drawCircle(context, actualCo, 20, "#66000066");
+      drawCircle(context, actualCo, 10, "#99000066");
+      drawCircle(context, actualCo, 5, "#ff000066");
+      drawCircle(context, actualCo, 2, "#00000000"); // user guess
 
       // draw line from target to click location
       context.beginPath();
