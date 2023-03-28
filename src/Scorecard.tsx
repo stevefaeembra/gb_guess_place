@@ -12,6 +12,8 @@ export default function Scorecard({ game, showStats }: Props) {
   // default to really high number, as we want lower total distance to be a winner
   const [highScoreDistance, setHighScoreDistance] = useLocalStorage("gbguessgame.highscore.distance", "99999999");
   const [highScoreGame, setHighScoreGame] = useLocalStorage("gbguessgame.highscore.gamescore", "0");
+  const [cumulativeGameScore, setCumulativeGameScore] = useLocalStorage("gbguessgame.score.cumulative", "0");
+
   const [gamesPlayed, setGamesPlayed] = useLocalStorage("gbguessgame.highscore.gamecount", "0");
   const [platinum, setPlatinum] = useLocalStorage("gbguessgame.count.platinum", "0");
   const [gold, setGold] = useLocalStorage("gbguessgame.count.gold", "0");
@@ -68,6 +70,7 @@ export default function Scorecard({ game, showStats }: Props) {
       setHighScoreGame(score.toString());
     }
     setGamesPlayed((parseInt(gamesPlayed) + 1).toString());
+    setCumulativeGameScore((parseInt(cumulativeGameScore) + score).toString());
     if (reload) {
       location.reload();
     } else {

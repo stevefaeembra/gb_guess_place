@@ -9,6 +9,8 @@ type Props = {};
 export default function StatsCard(props: Props) {
   const [highScoreDistance] = useLocalStorage("gbguessgame.highscore.distance", "99999999");
   const [highScoreGame] = useLocalStorage("gbguessgame.highscore.gamescore", "0");
+  const [cumulativeGameScore, setCumulativeGameScore] = useLocalStorage("gbguessgame.score.cumulative", "0");
+
   const [gamesPlayed] = useLocalStorage("gbguessgame.highscore.gamecount", "0");
   const [platinum, setPlatinum] = useLocalStorage("gbguessgame.count.platinum", "0");
   const [gold, setGold] = useLocalStorage("gbguessgame.count.gold", "0");
@@ -18,6 +20,10 @@ export default function StatsCard(props: Props) {
 
   const asPercentageOfRounds = (value: string) => {
     return ((parseFloat(value) / numberRounds) * 100).toFixed(1);
+  };
+
+  const averageGameScore = () => {
+    return (parseFloat(cumulativeGameScore) / parseFloat(gamesPlayed)).toFixed(0).toString();
   };
 
   return (
@@ -41,15 +47,25 @@ export default function StatsCard(props: Props) {
             <th>Total number games played</th>
             <th>{gamesPlayed}</th>
           </tr>
-          <tr>
+          {/* <tr>
             <th>Rounds Played</th>
             <th>Total number rounds</th>
             <th>{numberRounds}</th>
-          </tr>
+          </tr> */}
           <tr>
             <th>High Score</th>
             <th>Highest game score</th>
             <th>{highScoreGame}</th>
+          </tr>
+          {/* <tr>
+            <th>Cumulative Score</th>
+            <th>Score over all games</th>
+            <th>{cumulativeGameScore}</th>
+          </tr> */}
+          <tr>
+            <th>Average Score</th>
+            <th>Average game score</th>
+            <th>{averageGameScore()}</th>
           </tr>
           <tr>
             <th>Minimum Distance</th>
