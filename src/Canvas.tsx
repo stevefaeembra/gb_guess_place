@@ -98,7 +98,14 @@ const Canvas = ({ round, onGuess, userGuess, roundNumber, advanceRound, ...props
         Target is <b>{targetName}</b>
       </p>
 
-      <canvas onClick={(e) => onGuess(convertClickToCanvasCoords(e.clientX, e.clientY))} ref={canvasRef} {...props} />
+      <canvas
+        onClick={(e) => {
+          // oops. This prevents cheating :-p
+          if (!userGuess) onGuess(convertClickToCanvasCoords(e.clientX, e.clientY));
+        }}
+        ref={canvasRef}
+        {...props}
+      />
     </div>
   );
 };
