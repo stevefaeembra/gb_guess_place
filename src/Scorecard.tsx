@@ -23,34 +23,55 @@ export default function Scorecard({ game, showStats }: Props) {
   const totalScore = game.rounds.reduce((acc, item) => acc + pixelsToKm(item.score), 0);
 
   // assign scores by distance
-  const scoreBands = game.rounds.map((round) => {
+  const scoreBands = game.rounds.map((round, index) => {
     if (round.score <= 1)
       return {
+        name: round.name,
+        number: index,
         title: "Platinum",
         class: "text-slate-900 font-bold",
         score: 200,
+        offBy: round.score,
       };
     if (round.score <= 5)
       return {
+        name: round.name,
+        number: index,
         title: "Gold",
         class: "text-amber-300 font-bold",
         score: 100,
+        offBy: round.score,
       };
     if (round.score <= 10)
       return {
+        name: round.name,
+        number: index,
         title: "Silver",
         class: "text-slate-400 font-bold ",
         score: 50,
+        offBy: round.score,
       };
     if (round.score <= 20)
       return {
+        name: round.name,
+        number: index,
         title: "Bronze",
         class: "text-yellow-600 font-bold",
+        offBy: round.score,
         score: 25,
       };
-    return { title: "", class: "text-slate-300", score: 0 };
+    return {
+      name: round.name,
+      number: index,
+      class: "text-slate-300",
+      score: 0,
+      offBy: round.score,
+    };
   });
 
+  const sortedScoreBands = scoreBands.sort((a, b) => (a.offBy > b.offBy ? 1 : -1));
+
+  console.log("scoreBands", scoreBands);
   const gameScore = scoreBands.reduce((acc, item) => acc + item.score, 0);
   const countPlatinum = scoreBands.filter((i) => i.title === "Platinum").length;
   const countGold = scoreBands.filter((i) => i.title === "Gold").length;
@@ -78,6 +99,8 @@ export default function Scorecard({ game, showStats }: Props) {
     }
   };
 
+  // sort rows by score descending
+
   return (
     <div>
       <div>
@@ -95,13 +118,13 @@ export default function Scorecard({ game, showStats }: Props) {
           </tr>
         </thead>
         <tbody>
-          {game.rounds.map((round, index) => (
+          {sortedScoreBands.map((round, index) => (
             <tr key={`${index}${round.name}`}>
-              <td>{index + 1}</td>
+              <td>{round.number + 1}</td>
               <td>
                 <b>{round.name}</b>
               </td>
-              <td>{round.score}</td>
+              <td>{round.offBy}</td>
               <td>
                 <p className={scoreBands[index].class}>{scoreBands[index].title}</p>
               </td>
